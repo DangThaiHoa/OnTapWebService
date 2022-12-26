@@ -1,0 +1,6 @@
+CREATE PROCEDURE sp_DeleteNhanVien @manv nchar(10)
+
+AS
+BEGIN
+DELETE FROM NHANVIEN WHERE MANV = @manv
+END

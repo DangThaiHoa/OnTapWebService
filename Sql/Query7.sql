@@ -1,0 +1,7 @@
+CREATE PROCEDURE sp_DeleteDonVi @madv nchar(10)
+
+AS
+BEGIN
+DELETE FROM DONVI
+WHERE MADV = @madv
+END

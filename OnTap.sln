@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnTap", "OnTap\OnTap.csproj", "{4D3261BC-FE15-47DC-A965-3F12F1792587}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLyNhanVien", "QuanLyNhanVien\QuanLyNhanVien.csproj", "{6E154524-D075-48A3-8E78-DEA3D7769367}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4D3261BC-FE15-47DC-A965-3F12F1792587} = {4D3261BC-FE15-47DC-A965-3F12F1792587}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D3261BC-FE15-47DC-A965-3F12F1792587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D3261BC-FE15-47DC-A965-3F12F1792587}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D3261BC-FE15-47DC-A965-3F12F1792587}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D3261BC-FE15-47DC-A965-3F12F1792587}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E154524-D075-48A3-8E78-DEA3D7769367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E154524-D075-48A3-8E78-DEA3D7769367}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E154524-D075-48A3-8E78-DEA3D7769367}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E154524-D075-48A3-8E78-DEA3D7769367}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CC38B583-A9C0-4A73-9EE7-B0D5532D7741}
+	EndGlobalSection
+EndGlobal
