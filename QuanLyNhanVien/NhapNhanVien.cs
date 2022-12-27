@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace QuanLyNhanVien
 {
@@ -20,6 +21,13 @@ namespace QuanLyNhanVien
             LoadDonVi();
             LoadNhanVienLenLuoi();
             LOADNGAYTHANGNAM();
+            btn_xoa.Enabled = false;
+            btn_sua.Enabled = false;
+            this.cboDonVi.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cboGioiTinh.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cboNgay.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cboThang.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cboNam.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void LoadDonVi()
@@ -75,20 +83,27 @@ namespace QuanLyNhanVien
         }
         private void LayDuLieuTuForm()
         {
-            manv = txtMaNV.Text;
-            hoten = txtHoTen.Text;
-            if (cboGioiTinh.SelectedItem.ToString() == "Nam")
+            if (txtMaNV.Text.Length == 0 || txtHoTen.Text.Length == 0 || txtHinhAnh.Text.Length == 0 || txtDiaChi.Text.Length == 0 || cboGioiTinh.Text.Length == 0 || cboDonVi.Text.Length == 0)
             {
-                gioitinh = 1;
+                MessageBox.Show("Vui Lòng Nhập Đầy Đủ Thông Tin!!", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                gioitinh = 0;
-            }
-            ngaysinh = DateTime.Parse(cboNam.Text + "/" + cboThang.Text + "/" + cboNgay.Text);
-            diachi = txtDiaChi.Text;
+                manv = txtMaNV.Text;
+                hoten = txtHoTen.Text;
+                if (cboGioiTinh.SelectedItem.ToString() == "Nam")
+                {
+                    gioitinh = 1;
+                }
+                else
+                {
+                    gioitinh = 0;
+                }
+                ngaysinh = DateTime.Parse(cboNam.Text + "/" + cboThang.Text + "/" + cboNgay.Text);
+                diachi = txtDiaChi.Text;
 
-            madv = cboDonVi.SelectedValue.ToString();
+                madv = cboDonVi.SelectedValue.ToString();
+            }
         }
 
         private void cboDonVi_Click(object sender, EventArgs e)
@@ -104,35 +119,100 @@ namespace QuanLyNhanVien
 
         private void btn_xoa_Click(object sender, EventArgs e)
         {
-            ws.DeleteNhanVien("sp_DeleteNhanVien", txtMaNV.Text.ToString());
-            txtMaNV.Clear();
+           DialogResult dialogResult = MessageBox.Show("Bạn có chắn chắn muốn xóa!?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if(dialogResult == DialogResult.Yes)
+            {
+                ws.DeleteNhanVien("sp_DeleteNhanVien", manv);
+                btn_sua.Enabled = false;
+                btn_xoa.Enabled = false;
+                txtMaNV.Enabled = true;
+                LoadNhanVienLenLuoi();
+            }
+            else
+            {
+                btn_sua.Enabled = false;
+                btn_xoa.Enabled = false;
+                txtMaNV.Enabled = true;
+            }
 
         }
-
         private void dgridNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(dgridNhanVien.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            if (dgridNhanVien.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
-                dgridNhanVien.CurrentRow.Selected = true;
-                txtMaNV.Text = dgridNhanVien.Rows[e.RowIndex].Cells["MANV"].FormattedValue.ToString();
+                btn_xoa.Enabled = true;
+                btn_sua.Enabled = true;
+                txtMaNV.Enabled = false;
+                try
+                {
+                    dgridNhanVien.CurrentRow.Selected = true;
+                    manv = String.Format(dgridNhanVien.Rows[e.RowIndex].Cells["MANV"].FormattedValue.ToString());
+                    txtMaNV.Text = dgridNhanVien.Rows[e.RowIndex].Cells["MANV"].FormattedValue.ToString();
+                    txtDiaChi.Text = dgridNhanVien.Rows[e.RowIndex].Cells["DIACHI"].FormattedValue.ToString();
+                    if (dgridNhanVien.Rows[e.RowIndex].Cells["HINHANH"].FormattedValue.ToString() != "")
+                    {
+                        Byte[] data = new Byte[0];
+                        data = (Byte[])dgridNhanVien.Rows[e.RowIndex].Cells["HINHANH"].Value;
+                        MemoryStream mem = new MemoryStream(data);
+                        picHinhAnh.Image = Image.FromStream(mem);
+                    }
+                    else
+                    {
+
+                    }
+                    txtHoTen.Text = dgridNhanVien.Rows[e.RowIndex].Cells["HOTEN"].FormattedValue.ToString();
+
+                }
+                catch (Exception)
+                {
+                    picHinhAnh.Image = null;
+                    return;
+                }
+            }
+        }
+
+        private void btn_sua_Click(object sender, EventArgs e)
+        {
+            ws.Connect();
+            if (txtMaNV.Text.Length == 0 || txtHoTen.Text.Length == 0 || txtHinhAnh.Text.Length == 0 || txtDiaChi.Text.Length == 0 || cboGioiTinh.Text.Length == 0 || cboDonVi.Text.Length == 0)
+            {
+                LayDuLieuTuForm();
+            }
+            else
+            {
+                LayDuLieuTuForm();
+                ws.Update("sp_UpdateNhanVien", manv, hoten, gioitinh, ngaysinh, diachi, image, madv);
+                ws.Disconnect();
+                LoadNhanVienLenLuoi();
+                btn_sua.Enabled = false;
+                btn_xoa.Enabled = false;
+                txtMaNV.Enabled = true;
+
             }
         }
 
         private void btnNhap_Click(object sender, EventArgs e)
         {
             ws.Connect();
-            LayDuLieuTuForm();
-            String Query = "Select * from NHANVIEN WHERE MANV = " + manv;
-            if (ws.CheckKey(Query) == true)
+            if (txtMaNV.Text.Length == 0 || txtHoTen.Text.Length == 0 || txtHinhAnh.Text.Length == 0 || txtDiaChi.Text.Length == 0 || cboGioiTinh.Text.Length == 0 || cboDonVi.Text.Length == 0)
             {
-                MessageBox.Show("Mã Nhân Viên Đã Tồn Tại");
-                txtMaNV.Clear();
+                LayDuLieuTuForm();
             }
             else
             {
-                ws.Insert("sp_InsertNhanVien", manv, hoten, gioitinh, ngaysinh, diachi, image, madv);
-                ws.Disconnect();
-                LoadNhanVienLenLuoi();
+                LayDuLieuTuForm();
+                String Query = "Select * from NHANVIEN where MANV = " + manv;
+                if (ws.CheckKey(Query) == true)
+                {
+                    MessageBox.Show("Mã Nhân Viên Đã Tồn Tại");
+                    txtMaNV.Clear();
+                }
+                else
+                {
+                    ws.Insert("sp_InsertNhanVien", manv, hoten, gioitinh, ngaysinh, diachi, image, madv);
+                    ws.Disconnect();
+                    LoadNhanVienLenLuoi();
+                }
             }
         }
 

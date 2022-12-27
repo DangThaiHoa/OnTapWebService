@@ -22,7 +22,7 @@ namespace OnTap
         SqlConnection cn;
         SqlCommand cmd;
         SqlDataAdapter da;
-        String connectionString = "Data Source=QuafBanhMi-PC;Initial Catalog=qlnv;Integrated Security=True";
+        String connectionString = "Data Source=QuafBanhMi;Initial Catalog=qlnv;Integrated Security=True";
         public WebService()
         {
             Connect();
@@ -109,6 +109,35 @@ namespace OnTap
             cmd = new SqlCommand(strStore, cn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@madv", SqlDbType.NChar).Value = madv;
+            cmd.ExecuteNonQuery();
+            Disconnect();
+        }
+
+        [WebMethod]
+        public void Update(string strStore, string manv, string hoten, int gioitinh, DateTime ngaysinh, string diachi, Byte[] hinhanh, string madv)
+        {
+            Connect();
+            cmd = new SqlCommand(strStore, cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@manv", SqlDbType.NChar).Value = manv;
+            cmd.Parameters.Add("@hoten", SqlDbType.NVarChar).Value = hoten;
+            cmd.Parameters.Add("@gioitinh", SqlDbType.Bit).Value = gioitinh;
+            cmd.Parameters.Add("@ngaysinh", SqlDbType.DateTime).Value = ngaysinh;
+            cmd.Parameters.Add("@diachi", SqlDbType.NVarChar).Value = diachi;
+            cmd.Parameters.Add("@hinhanh", SqlDbType.Image).Value = hinhanh;
+            cmd.Parameters.Add("@madv", SqlDbType.NChar).Value = madv;
+            cmd.ExecuteNonQuery();
+            Disconnect();
+        }
+
+        [WebMethod]
+        public void UpdateDonVi(string strStore, string madv, string tendv)
+        {
+            Connect();
+            cmd = new SqlCommand(strStore, cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@madv", SqlDbType.NChar).Value = madv;
+            cmd.Parameters.Add("@tendv", SqlDbType.NVarChar).Value = tendv;
             cmd.ExecuteNonQuery();
             Disconnect();
         }

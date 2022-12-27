@@ -48,6 +48,15 @@ namespace QuanLyNhanVien.ServiceReference {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/DeleteDonVi", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         void DeleteDonVi(string strStore, string madv);
+        
+        // CODEGEN: Parameter 'hinhanh' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Update", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        QuanLyNhanVien.ServiceReference.UpdateResponse Update(QuanLyNhanVien.ServiceReference.UpdateRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UpdateDonVi", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        void UpdateDonVi(string strStore, string madv, string tendv);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -103,6 +112,62 @@ namespace QuanLyNhanVien.ServiceReference {
     public partial class InsertResponse {
         
         public InsertResponse() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="Update", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class UpdateRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string strStore;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string manv;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        public string hoten;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=3)]
+        public int gioitinh;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=4)]
+        public System.DateTime ngaysinh;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=5)]
+        public string diachi;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=6)]
+        [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+        public byte[] hinhanh;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=7)]
+        public string madv;
+        
+        public UpdateRequest() {
+        }
+        
+        public UpdateRequest(string strStore, string manv, string hoten, int gioitinh, System.DateTime ngaysinh, string diachi, byte[] hinhanh, string madv) {
+            this.strStore = strStore;
+            this.manv = manv;
+            this.hoten = hoten;
+            this.gioitinh = gioitinh;
+            this.ngaysinh = ngaysinh;
+            this.diachi = diachi;
+            this.hinhanh = hinhanh;
+            this.madv = madv;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="UpdateResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class UpdateResponse {
+        
+        public UpdateResponse() {
         }
     }
     
@@ -177,6 +242,28 @@ namespace QuanLyNhanVien.ServiceReference {
         
         public void DeleteDonVi(string strStore, string madv) {
             base.Channel.DeleteDonVi(strStore, madv);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        QuanLyNhanVien.ServiceReference.UpdateResponse QuanLyNhanVien.ServiceReference.WebServiceSoap.Update(QuanLyNhanVien.ServiceReference.UpdateRequest request) {
+            return base.Channel.Update(request);
+        }
+        
+        public void Update(string strStore, string manv, string hoten, int gioitinh, System.DateTime ngaysinh, string diachi, byte[] hinhanh, string madv) {
+            QuanLyNhanVien.ServiceReference.UpdateRequest inValue = new QuanLyNhanVien.ServiceReference.UpdateRequest();
+            inValue.strStore = strStore;
+            inValue.manv = manv;
+            inValue.hoten = hoten;
+            inValue.gioitinh = gioitinh;
+            inValue.ngaysinh = ngaysinh;
+            inValue.diachi = diachi;
+            inValue.hinhanh = hinhanh;
+            inValue.madv = madv;
+            QuanLyNhanVien.ServiceReference.UpdateResponse retVal = ((QuanLyNhanVien.ServiceReference.WebServiceSoap)(this)).Update(inValue);
+        }
+        
+        public void UpdateDonVi(string strStore, string madv, string tendv) {
+            base.Channel.UpdateDonVi(strStore, madv, tendv);
         }
     }
 }
