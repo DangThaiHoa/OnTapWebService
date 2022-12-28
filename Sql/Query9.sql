@@ -3,4 +3,4 @@ as
 begin
 update DONVI set TENDV = @tendv
 where MADV = @madv;
-end
+end	

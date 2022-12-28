@@ -126,6 +126,7 @@ namespace QuanLyNhanVien
                 btn_sua.Enabled = false;
                 btn_xoa.Enabled = false;
                 txtMaNV.Enabled = true;
+                btnNhap.Enabled = true;
                 LoadNhanVienLenLuoi();
             }
             else
@@ -133,6 +134,7 @@ namespace QuanLyNhanVien
                 btn_sua.Enabled = false;
                 btn_xoa.Enabled = false;
                 txtMaNV.Enabled = true;
+                btnNhap.Enabled = true;
             }
 
         }
@@ -142,6 +144,7 @@ namespace QuanLyNhanVien
             {
                 btn_xoa.Enabled = true;
                 btn_sua.Enabled = true;
+                btnNhap.Enabled = false;
                 txtMaNV.Enabled = false;
                 try
                 {
@@ -187,6 +190,7 @@ namespace QuanLyNhanVien
                 btn_sua.Enabled = false;
                 btn_xoa.Enabled = false;
                 txtMaNV.Enabled = true;
+                btnNhap.Enabled = true;
 
             }
         }

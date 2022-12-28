@@ -47,6 +47,7 @@ namespace QuanLyNhanVien
             {
                 btn_xoa.Enabled = true;
                 btn_sua.Enabled = true;
+                btn_nhap.Enabled = false;
                 dgv_donvi.CurrentRow.Selected = true;
                 madv = String.Format(dgv_donvi.Rows[e.RowIndex].Cells["MADV"].FormattedValue.ToString());
                 txt_madv.Text = dgv_donvi.Rows[e.RowIndex].Cells["MADV"].FormattedValue.ToString();
@@ -67,11 +68,14 @@ namespace QuanLyNhanVien
                 btn_sua.Enabled = false;
                 btn_xoa.Enabled = false;
                 txt_madv.Enabled = true;
+                btn_nhap.Enabled = true;
             }
             else
             {
                 btn_xoa.Enabled = false;
+                btn_sua.Enabled = false;
                 txt_madv.Enabled = true;
+                btn_nhap.Enabled = true;
             }
         }
 
@@ -85,12 +89,13 @@ namespace QuanLyNhanVien
             {
                 ws.Connect();
                 LayDuLieuTuForm();
-                ws.InsertDonVi("sp_UpdateDonVi", madv, tendv);
+                ws.UpdateDonVi("sp_UpdateDonVi", madv, tendv);
                 ws.Disconnect();
                 LoadDonViLenLuoi();
                 btn_sua.Enabled = false;
                 btn_xoa.Enabled = false;
                 txt_madv.Enabled = true;
+                btn_nhap.Enabled = true;
 
             }
         }
